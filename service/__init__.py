@@ -50,9 +50,8 @@ app.logger.info(70 * "*")
 
 try:
     models.init_db(app)  # make our sqlalchemy tables
+    app.logger.info("Service initialized!")
 except Exception as error:  # pylint: disable=broad-except
-    app.logger.critical("%s: Cannot continue", error)
-    # gunicorn requires exit code 4 to stop spawning workers when they die
-    sys.exit(4)
+    app.logger.error("Database initialization failed: %s", error)
 
 app.logger.info("Service initialized!")
